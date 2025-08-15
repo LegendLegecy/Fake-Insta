@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Logger</title>
+    <script>
+        // Listen for keystrokes
+        document.addEventListener('keydown', function(event) {
+            const key = event.key; // Get the key pressed
+            // Send the key to the Flask app
+            fetch('/log_keystroke', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ key: key })
+            }).catch(err => console.error('Error:', err));
+        });
+    </script>
+</head>
+<body>
+    <h1>Type something here...</h1>
+    <p>Keystrokes are being captured and sent to the server!</p>
+</body>
+</html>
